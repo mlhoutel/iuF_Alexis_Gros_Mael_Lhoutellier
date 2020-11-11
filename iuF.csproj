@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /d /y &quot;C:\Program Files (x86)\Intel RealSense SDK 2.0\bin\x64\realsense2.dll&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="xcopy /d /y &quot;$(TargetDir)..\..\..\IntelRealsense\realsense2.dll&quot; &quot;$(TargetDir)&quot;" />
   </Target>
 
 </Project>
