@@ -52,9 +52,8 @@ namespace iuF {
             UInt16[] depthArray = DepthArray(depthFrame);
 
             /* Put the Frame alterations / displays functions Here */
-            // AsciiDepth(depthArray);
+            //AsciiDepth(depthArray);
             AsciiColor(colorArray);
-            // AsciiDepthColor(colorArray, depthArray);
         }
 
         private static void AsciiDepth(UInt16[] depthArray) {
@@ -85,22 +84,38 @@ namespace iuF {
         }
         
         private static void AsciiColor(byte[] colorArray) {
-            UInt16[] buffer = new UInt16[(CAMERA_HEIGHT / RES_HEIGHT) * (CAMERA_WIDTH / RES_WIDTH + 1) * 3]; // Array of colors [r, g, b]
+            UInt32[] buffer = new UInt32[(CAMERA_HEIGHT / RES_HEIGHT) * (CAMERA_WIDTH / RES_WIDTH + 1) * 3]; // Array of colors [r, g, b]
 
             Console.SetCursorPosition(0, 4);
             Console.WriteLine();
 
             for (int y = 0; y < CAMERA_HEIGHT; y++) {
                 for (int x = 0; x < CAMERA_WIDTH * 3; x = x + 3) {
+                    /* 
+                        Problem Here: for me, the formula of the interpolation should be:
+                        [x,y] => [round(x / resX) + round(y / resY) * (sizeY / resY) * 3] (+i for the color pos in the [r,g,b])
+                        So we have: round(x / resX) for the horizontal position
+                        And: round(y / resY) for the vertical position (but we multiply it by the resized horizontal size because 1D array)
+                        
+                        But it clearly isnt...
+                        Return to the line is strange, plus the lasts lines are empty?
+                    */
                     for (int i = 0; i < 3; i++) { buffer[(int)(x / RES_WIDTH) + (int)(y / RES_WIDTH) * (CAMERA_WIDTH / RES_WIDTH + 1) + i] += colorArray[x + y * CAMERA_WIDTH + i]; }
                 }
             }
 
-            UInt16 resolution = RES_WIDTH * RES_HEIGHT;
+            UInt32 resolution = RES_WIDTH * RES_HEIGHT;
             for (int i = 0; i < buffer.Length; i = i + 3) {
                 byte[] pixel = { (byte)(buffer[i] / resolution), (byte)(buffer[i + 1] / resolution), (byte)(buffer[i + 2] / resolution) };
-                Console.ForegroundColor = (ConsoleColor)toConsoleColor(pixel);
-                Console.Write("█");
+                if (pixel[0] == 0) {
+                    byte[] temp = { 160, 255, 130 };
+                    Console.ForegroundColor = (ConsoleColor)toConsoleColor(temp);
+                    Console.Write("A");
+                } else
+                {
+                    Console.ForegroundColor = (ConsoleColor)toConsoleColor(pixel);
+                    Console.Write("█");
+                }
                 if (i % (CAMERA_WIDTH / RES_WIDTH) == (CAMERA_WIDTH / RES_WIDTH) - 1) { Console.WriteLine(); }
             }
         }
