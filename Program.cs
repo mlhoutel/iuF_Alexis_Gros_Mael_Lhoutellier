@@ -11,6 +11,8 @@ namespace iuF {
 
             /* We then use the Streamer object to extract the frames and transmit the datas */
             Streamer.Stream(fromfile);
+            // Streamer.AsciiDepth(fromfile);
+            // Streamer.AsciiColor(fromfile);
         }
     }
 }
