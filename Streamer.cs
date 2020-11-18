@@ -98,8 +98,12 @@ namespace iuF {
         // Export the Frame datas to the Api
         private static bool StreamFrame(Tuple<byte[], ushort[], float[]> data) {
 
-            float[] super = data.Item3;
-            // for (int i = 0; i < super.Length; i++) { Console.Write(super[i]); }
+            byte[] colors = data.Item1;
+            float[] vertices = data.Item3;
+
+            for (int i = 0; i < vertices.Length; i = i + 3) {
+                Console.WriteLine("vertice {0} / {1}: \t position [{2},{3},{4}],\t color [{5},{6},{7}]", i / 3, vertices.Length / 3, vertices[i], vertices[i+1], vertices[i+2], colors[i], colors[i + 1], colors[i + 2]);
+            }
 
             return true;
         }
@@ -139,7 +143,7 @@ namespace iuF {
         // Display the frame in colors
         private static bool AsciiColorFrame(Tuple<byte[], ushort[], float[]> data) {
 
-            byte[] colorArray = data.Item1;
+            byte[] colors = data.Item1;
             ushort[] buffer = new ushort[(CAMERA_HEIGHT / RES_HEIGHT) * (CAMERA_WIDTH / RES_WIDTH + 1) * 3]; // Array of colors [r, g, b]
 
             Console.SetCursorPosition(0, 4);
@@ -156,7 +160,7 @@ namespace iuF {
                         But it clearly isnt...
                         Return to the line is strange, plus the lasts lines are empty?
                     */
-                    for (int i = 0; i < 3; i++) { buffer[(int)(x / RES_WIDTH) + (int)(y / RES_WIDTH) * (CAMERA_WIDTH / RES_WIDTH + 1) + i] += colorArray[x + y * CAMERA_WIDTH + i]; }
+                    for (int i = 0; i < 3; i++) { buffer[(int)(x / RES_WIDTH) + (int)(y / RES_WIDTH) * (CAMERA_WIDTH / RES_WIDTH + 1) + i] += colors[x + y * CAMERA_WIDTH + i]; }
                 }
             }
 
@@ -169,6 +173,16 @@ namespace iuF {
                 
                 if (i % (CAMERA_WIDTH / RES_WIDTH) == (CAMERA_WIDTH / RES_WIDTH) - 1) { Console.WriteLine(); }
             }
+
+            // All pixels without interpolation
+            /*
+            for (int i = 0; i < colors.Length; i = i + 3) {
+                byte[] color = { colors[i], colors[i + 1], colors[i + 2] };
+                Console.ForegroundColor = (ConsoleColor)toConsoleColor(color);
+                Console.Write("█");
+            }
+            Console.ReadKey();
+            */
 
             return true;
         }
