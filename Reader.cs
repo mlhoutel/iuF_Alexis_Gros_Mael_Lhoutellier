@@ -23,7 +23,6 @@ namespace iuF {
             DateTime begins = DateTime.Now;
 
             Console.WriteLine("Reading file {0}\nDuration time: {1}\nCamera name: {2}\nSerial number: {3}\nFirmware version: {4}\n", filename, TimeSpan.FromMilliseconds(playback.Duration * 1e-6), device.Info[CameraInfo.Name], device.Info[CameraInfo.SerialNumber], device.Info[CameraInfo.FirmwareVersion]);
-
             playback.Realtime = false;
 
             return pipeline;
