@@ -19,7 +19,7 @@ pixel 254 / 307200:      position [254,0,2601],  color [124,125,119]
 #### Point Cloud
 Extraction of the Points with the color, and position from the center in meter.
 ```
-vertice 160 / 200:       position [-0,9332999,-1,3640885,3,456],  color [24,20,13]
+vertice 160 / 307200:       position [-0,9332999,-1,3640885,3,456],  color [24,20,13]
 ```
 
 #### Debug Displays in Ascii

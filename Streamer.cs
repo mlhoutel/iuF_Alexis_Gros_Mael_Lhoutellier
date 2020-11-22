@@ -19,9 +19,6 @@ namespace iuF {
         const ushort RES_HEIGHT = 20; // 20px height => 1px height
         const ushort RES_DEPTH = 1500; // maximum depth of display
 
-        /* RESOLUTION OF THE POINTCLOUD */
-        const ushort RES_POINTS = 200;
-
         /* Extract the PointCloud and return the Points from the Frame */
         private static Points PointsArray(VideoFrame depthFrame, VideoFrame colorFrame) {
             PointCloud pointCloud = new PointCloud();
@@ -142,8 +139,9 @@ namespace iuF {
             byte[] colors = data.Item1;
             float[] vertices = data.Item3;
             float[] coordinates = data.Item4;
+            int resolution = vertices.Length / 3;
 
-            for (int i = 0; i < RES_POINTS; i++) {
+            for (int i = 0; i < resolution; i++) {
 
                 // Get the Point position (x,y,z in meters)
                 float[] position = new float[3];
@@ -158,7 +156,7 @@ namespace iuF {
                     color[j] = colors[3 * index + j];
                 }
 
-                Console.WriteLine("vertice {0} / {1}: \t position [{2},{3},{4}],\t color [{5},{6},{7}]", i + 1, RES_POINTS, position[0], position[1], position[2], color[0], color[1], color[2]);
+                Console.WriteLine("vertice {0} / {1}: \t position [{2},{3},{4}],\t color [{5},{6},{7}]", i + 1, resolution, position[0], position[1], position[2], color[0], color[1], color[2]);
             }
 
             return true;

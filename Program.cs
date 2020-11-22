@@ -12,11 +12,11 @@ namespace iuF {
             /* We then use the Streamer object to extract the frames and transmit the datas */
 
             /* Display raw datas*/
-            // Streamer.DisplayPixels(fromfile); 
+            //Streamer.DisplayPixels(fromfile); 
             Streamer.DisplayPoints(fromfile);
 
             /* Visualisation functions */
-            // Streamer.AsciiDepth(fromfile); 
+            //Streamer.AsciiDepth(fromfile); 
             // Streamer.AsciiColor(fromfile);
 
             /* Send raw datas */
