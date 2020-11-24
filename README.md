@@ -1,5 +1,7 @@
-# iuF - School Project
-Reading of datas from a 3D Depth Camera ([Intel® RealSense™ D435](https://www.intelrealsense.com/depth-camera-d435/)) through the [Intel Realsense Api](https://github.com/IntelRealSense/librealsense):
+# iuF_Intel_Realsense
+Reading of datas from a 3D Depth Camera ([Intel® RealSense™ D435](https://www.intelrealsense.com/depth-camera-d435/)) through the [Intel Realsense Api](https://github.com/IntelRealSense/librealsense)
+
+See the Second Part: [iuF_Nuitrack](https://github.com/mlhoutel/iuF_Nuitrack)
 
 ## First Step : Extracting of the Datas from the Video Stream
 
